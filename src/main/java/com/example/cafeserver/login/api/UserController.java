@@ -19,16 +19,19 @@ public class UserController {
 
 
     @PostMapping(path= "/add")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody String createUser(@RequestBody User user){
         return userService.createStaff(user);
     }
 
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody Boolean Login(@RequestBody User user){
                 return userService.validateUser(user);
         }
@@ -37,5 +40,4 @@ public class UserController {
     public @ResponseBody boolean test(@RequestParam String username){
         return userService.isUserExist(username);
     }
-
 }

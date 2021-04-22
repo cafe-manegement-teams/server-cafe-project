@@ -1,12 +1,11 @@
 package com.example.cafeserver.login.model;
 import javax.persistence.*;
 @Entity
-@Table(name= "user")
+    @Table(name= "tbl_user")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-
 
     @Column(name = "username")
     private String username;

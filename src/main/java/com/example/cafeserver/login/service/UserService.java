@@ -19,8 +19,6 @@ import org.springframework.beans.factory.annotation.*;
 @Service
 public class UserService {
 
-//    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-
     @Autowired
     private UserRepository userRepository;
 
@@ -61,11 +59,9 @@ public class UserService {
     }
 
     public Boolean validateUser(User user) {
-//        String token = " Error : Token will not create";
-//        String message = "";
         Boolean validated = false;
         try {
-            Boolean isUserExist = isUserExist(user.getUsername());
+            Boolean isUserExist = isUserExist(user.getUsername( ));
             User userforcheck = new User();
             if (isUserExist == true) {
                 userforcheck = userRepository.findUserByUsername(user.getUsername());
