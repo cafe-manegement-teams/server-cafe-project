@@ -40,10 +40,20 @@ public class StaffService {
         return "Create Staff Successfully";
     }
 
-    public void editStaff(Staff staff) {
-         Staff updateStaff = staffRepository.getOne(staff.getId());
-         updateStaff = staff;
-         staffRepository.save(updateStaff);
+    public String editStaff(Staff oldStaff, Staff newStaff) {
+        String message = "Update Successfully !";
+//        Staff staffExist = staffRepository.findStaffByFullname(newStaff.getFullname());
+        Boolean staffExist = isStaffExist(newStaff.getFullname());
+        if(staffExist == true) {
+            message = "Staff is existed !";
+            return message ;}
+        oldStaff.setFullname(newStaff.getFullname());
+        oldStaff.setDatebirth(newStaff.getDatebirth());
+        oldStaff.setPhone(newStaff.getPhone());
+        oldStaff.setAddress(newStaff.getAddress());
+        oldStaff.setPosition(newStaff.getPosition());
+        staffRepository.save(oldStaff);
+        return message;
     }
 
 }

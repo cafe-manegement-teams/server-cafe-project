@@ -32,25 +32,26 @@ public class StaffController {
         return staffRepository.findAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/delete/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public @ResponseBody String deleteStaff(@RequestParam(name = "id") Integer id){
+    public @ResponseBody String deleteStaff(@PathVariable(name = "id") Integer id){
          staffRepository.deleteById(id);
          return "Deleted Successfully";
     }
 
-    @PutMapping(path = "/update")
+    @PutMapping(path = "/update/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
-    public @ResponseBody String updateStaff(@RequestBody Staff staff){
-        staffService.editStaff(staff);
-        return "Update Successfully";
+    public @ResponseBody String updateStaff(@PathVariable(name = "id") Integer id, @RequestBody Staff staff){
+        Staff staffTODO = staffRepository.findStaffById(id);
+        if(staffTODO != null) {
+            return staffService.editStaff(staffTODO,staff);
+        } else { return "Id not found"; }
     }
 
     @GetMapping(path = "/infor/{id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody Staff getInforStaff(@PathVariable(name = "id") Integer id){
         return staffRepository.findStaffById(id);
-       // return staff.getFullname() + staff.getDatebirth() + staff.getPhone() + staff.getAddress() + staff.getPosition();
     }
 
 
