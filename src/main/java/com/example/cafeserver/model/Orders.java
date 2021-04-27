@@ -15,7 +15,7 @@ public class Orders {
         private LocalDate create_at;
 
         @Column(name = "total")
-        private Double total;
+        private Double total;   
 
         @Column(name = "status")
         private String status;
