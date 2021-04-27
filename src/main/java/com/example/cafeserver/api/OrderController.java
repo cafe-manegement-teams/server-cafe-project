@@ -8,6 +8,8 @@ import com.example.cafeserver.model.ProductOrder;
 import com.example.cafeserver.service.OrderService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -26,11 +28,12 @@ public class OrderController {
 
     @PostMapping(path="{order_id}/add/{quantity}")
     public @ResponseBody
-    ProductOrder addProductToOrder(@PathVariable(name="order_id") Integer order_id,
+    ProductOrder addProductToOrderById(@PathVariable(name="order_id") Integer order_id,
                               @RequestBody Product product,
                               @PathVariable(name="quantity") Integer quantity){
-        return orderService.addProductToOrder(order_id,product,quantity);
+        return orderService.addProductToOrderByName(order_id,product,quantity);
     }
+
 
     @GetMapping(path="{order_id}")
     public @ResponseBody
@@ -49,5 +52,12 @@ public class OrderController {
         orderService.deleteOrder(order_id);
         return "Deleted Order !";
     }
+
+    @GetMapping(path = "all")
+    public @ResponseBody
+    List<Orders> getAllOrders(){
+        return orderService.getAllOrder();
+    }
+
 
 }

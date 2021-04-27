@@ -5,6 +5,8 @@ import com.example.cafeserver.repo.ProductRepository;
 import org.springframework.stereotype.*;
 import org.springframework.beans.factory.annotation.*;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -53,5 +55,9 @@ public class ProductService {
 
     public Product getProduct(Integer id_product) {
         return productRepository.findProductById(id_product);
+    }
+
+    public List<Product> getAllProduct() {
+        return productRepository.findAll();
     }
 }

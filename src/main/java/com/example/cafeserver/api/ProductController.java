@@ -6,11 +6,19 @@ import com.example.cafeserver.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/product")
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @GetMapping(path = "all")
+    public @ResponseBody
+    List<Product> getAllProduct() {
+        return productService.getAllProduct();
+    }
 
     @PostMapping(path = "create")
     public @ResponseBody

@@ -1,6 +1,7 @@
 package com.example.cafeserver.repo;
 
 import com.example.cafeserver.model.Orders;
+import com.example.cafeserver.model.Product;
 import com.example.cafeserver.model.ProductOrder;
 import org.springframework.data.jpa.repository.*;
 
