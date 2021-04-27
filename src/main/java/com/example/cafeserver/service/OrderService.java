@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 @Service
 public class OrderService {
@@ -36,10 +37,7 @@ public class OrderService {
         return results;
     }
 
-    public ProductOrder addProductToOrder(Integer order_id ,Product product, Integer quantity) {
-        Orders orders = ordersRepository.findOrdersById(order_id);
-        if(orders == null) { return null; }
-        Product products = productRepository.findProductById(product.getId());
+    public ProductOrder addProduct(Integer quantity, Orders orders, Product products) {
         ProductOrder productOrder = new ProductOrder();
         productOrder.setProduct(products);
         productOrder.setQuantity(quantity);
@@ -47,6 +45,20 @@ public class OrderService {
         productOrder.setOrder(orders);
         productOrderRepository.save(productOrder);
         return productOrder;
+    }
+
+    public ProductOrder addProductToOrderById(Integer order_id ,Product product, Integer quantity) {
+        Orders orders = ordersRepository.findOrdersById(order_id);
+        if(orders == null) { return null; }
+        Product products = productRepository.findProductById(product.getId());
+        return addProduct(quantity, orders, products);
+    }
+
+    public ProductOrder addProductToOrderByName(Integer order_id, Product product, Integer quantity) {
+        Orders orders = ordersRepository.findOrdersById(order_id);
+        if(orders == null) { return null; }
+            Product products = productRepository.findProductByProductname(product.getProductname());
+            return addProduct(quantity, orders, products);
     }
 
     public Orders order(Integer order_id){
@@ -60,6 +72,10 @@ public class OrderService {
         orders.setTotal(total);
         ordersRepository.save(orders);
         return orders;
+    }
+
+    public List<Orders> getAllOrder(){
+        return ordersRepository.findAll();
     }
 
     public Set<ProductOrder> getDetailInOrder(Integer order_id){
