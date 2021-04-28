@@ -5,11 +5,13 @@ package com.example.cafeserver.api;
 import com.example.cafeserver.model.Orders;
 import com.example.cafeserver.model.Product;
 import com.example.cafeserver.model.ProductOrder;
+import com.example.cafeserver.model.TakeOrder;
 import com.example.cafeserver.service.OrderService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -21,17 +23,17 @@ public class OrderController {
 
     @PostMapping(path="create")
     public @ResponseBody
-    Orders createOrder(@RequestBody Orders order){
+    Integer createOrder(@RequestBody Orders order){
         return orderService.createOrder(order);
     }
 
 
     @PostMapping(path="{order_id}/add/{quantity}")
     public @ResponseBody
-    ProductOrder addProductToOrderById(@PathVariable(name="order_id") Integer order_id,
+    void addProductToOrderById(@PathVariable(name="order_id") Integer order_id,
                               @RequestBody Product product,
                               @PathVariable(name="quantity") Integer quantity){
-        return orderService.addProductToOrderByName(order_id,product,quantity);
+         orderService.addProductToOrderByName(order_id,product,quantity);
     }
 
 
@@ -59,5 +61,11 @@ public class OrderController {
         return orderService.getAllOrder();
     }
 
+    @PostMapping(path = "{id}/add")
+    public @ResponseBody
+    List<ProductOrder> addAllProductInOrder(@PathVariable(name = "id") Integer order_id,
+                                            @RequestBody List<TakeOrder> takeOrderList) {
+        return orderService.addAllProductInOrder(order_id,takeOrderList);
+    }
 
 }

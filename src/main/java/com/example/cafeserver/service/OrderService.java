@@ -3,6 +3,7 @@ package com.example.cafeserver.service;
 import com.example.cafeserver.model.Orders;
 import com.example.cafeserver.model.Product;
 import com.example.cafeserver.model.ProductOrder;
+import com.example.cafeserver.model.TakeOrder;
 import com.example.cafeserver.repo.OrdersRepository;
 import com.example.cafeserver.repo.ProductOrderRepository;
 import com.example.cafeserver.repo.ProductRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.*;
 import org.springframework.beans.factory.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -25,7 +27,7 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Orders createOrder(Orders orders){
+    public Integer createOrder(Orders orders){
         Date date = new Date();
         Orders results = ordersRepository.save(
                 new Orders(
@@ -34,7 +36,40 @@ public class OrderService {
                         "PENDING !"
                 )
         );
-        return results;
+        return results.getId();
+    }
+
+    public List<ProductOrder> addAllProductInOrder(Integer order_id,List<TakeOrder> takeOrderList) {
+        Orders orders = ordersRepository.findOrdersById(order_id);
+        List<ProductOrder> productOrderList = new ArrayList<ProductOrder>();
+        for(TakeOrder i : takeOrderList){
+            if(productRepository.findProductById(i.product_id) == null){
+                return productOrderList;
+            } else {
+                if(i.quantity == 0) {
+                    return new ArrayList<ProductOrder>();
+                } else {
+                    ProductOrder productOrder =new ProductOrder();
+                    Product product = productRepository.findProductById(i.product_id);
+                    productOrder.setOrder(orders);
+                    productOrder.setProduct(product);
+                    productOrder.setQuantity(i.quantity);
+                    productOrder.setSubtotal(product.getPrice() * i.quantity);
+                    productOrderList.add(productOrder);
+                }
+            }
+        }
+        productOrderRepository.saveAll(productOrderList);
+        return productOrderList;
+    }
+
+    public void addSingleProduct(String productname,Orders orders, Integer quantity, List<ProductOrder> productOrderList){
+        ProductOrder productOrder = new ProductOrder();
+        Product product = productRepository.findProductByProductname(productname);
+        productOrder.setOrder(orders);
+        productOrder.setProduct(product);
+        productOrder.setQuantity(quantity);
+        productOrderList.add(productOrder);
     }
 
     public ProductOrder addProduct(Integer quantity, Orders orders, Product products) {
