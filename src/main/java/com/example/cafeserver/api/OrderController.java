@@ -20,6 +20,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping(path="create")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Orders createOrder(@RequestBody Orders order){
         return orderService.createOrder(order);
@@ -27,6 +28,7 @@ public class OrderController {
 
 
     @PostMapping(path="{order_id}/add/{quantity}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     ProductOrder addProductToOrderById(@PathVariable(name="order_id") Integer order_id,
                               @RequestBody Product product,
@@ -36,24 +38,28 @@ public class OrderController {
 
 
     @GetMapping(path="{order_id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Set<ProductOrder> getDetailInOrder(@PathVariable(name = "order_id") Integer order_id){
         return orderService.getDetailInOrder(order_id);
     }
 
     @PostMapping(path = "{id}/print")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Orders order(@PathVariable(name = "id") Integer id_product) {
         return orderService.order(id_product);
     }
 
     @DeleteMapping(path = "{id}/delete")
+    @CrossOrigin(origins = "http://localhost:3000")
     public String deleteOrder(@PathVariable(name = "id") Integer order_id){
         orderService.deleteOrder(order_id);
         return "Deleted Order !";
     }
 
     @GetMapping(path = "all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<Orders> getAllOrders(){
         return orderService.getAllOrder();
