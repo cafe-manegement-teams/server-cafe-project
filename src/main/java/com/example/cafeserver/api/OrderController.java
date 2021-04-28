@@ -38,8 +38,7 @@ public class OrderController {
          orderService.addProductToOrderByName(order_id,product,quantity);
     }
 
-
-    @GetMapping(path="{order_id}")
+        @GetMapping(path="{order_id}")
     @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Set<ProductOrder> getDetailInOrder(@PathVariable(name = "order_id") Integer order_id){
@@ -68,6 +67,7 @@ public class OrderController {
     }
 
     @PostMapping(path = "{id}/add")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<ProductOrder> addAllProductInOrder(@PathVariable(name = "id") Integer order_id,
                                             @RequestBody List<TakeOrder> takeOrderList) {

@@ -43,18 +43,18 @@ public class OrderService {
         Orders orders = ordersRepository.findOrdersById(order_id);
         List<ProductOrder> productOrderList = new ArrayList<ProductOrder>();
         for(TakeOrder i : takeOrderList){
-            if(productRepository.findProductById(i.product_id) == null){
+            if(productRepository.findProductById(i.id) == null){
                 return productOrderList;
             } else {
-                if(i.quantity == 0) {
+                if(i.qty == 0) {
                     return new ArrayList<ProductOrder>();
                 } else {
                     ProductOrder productOrder =new ProductOrder();
-                    Product product = productRepository.findProductById(i.product_id);
+                    Product product = productRepository.findProductById(i.id);
                     productOrder.setOrder(orders);
                     productOrder.setProduct(product);
-                    productOrder.setQuantity(i.quantity);
-                    productOrder.setSubtotal(product.getPrice() * i.quantity);
+                    productOrder.setQuantity(i.qty);
+                    productOrder.setSubtotal(product.getPrice() * i.qty);
                     productOrderList.add(productOrder);
                 }
             }
