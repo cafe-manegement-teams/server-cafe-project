@@ -28,7 +28,6 @@ public class OrderService {
     private ProductRepository productRepository;
 
     public Integer createOrder(Orders orders){
-        Date date = new Date();
         Orders results = ordersRepository.save(
                 new Orders(
                         LocalDate.now(),
