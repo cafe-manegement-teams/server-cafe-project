@@ -13,16 +13,19 @@ public class ShiftController {
     private ShiftRepository shiftRepository;
 
     @PostMapping(path = "/create")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody Shift createShift (@RequestBody Shift shift) {
         return shiftRepository.save(shift);
     }
 
     @GetMapping(path="all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody List<Shift> getAllShift(){
         return shiftRepository.findAll();
     }
 
     @GetMapping(path = "{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody Shift getShift(@PathVariable(name = "id") Integer id){
         return shiftRepository.findShiftById(id);
     }

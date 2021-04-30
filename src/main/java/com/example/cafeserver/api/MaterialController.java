@@ -14,18 +14,21 @@ public class MaterialController {
 
 
     @GetMapping(path="all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<Material> getAllMaterials(){
         return materialService.getAllMaterials();
     }
 
     @PostMapping(path="create")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     String addMaterial(@RequestBody Material material){
             return materialService.createMaterial(material);
     }
 
     @PutMapping(path = "{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Material updateProduct(@PathVariable(name = "id") Integer id_material,
                           @RequestBody Material material) {
@@ -33,11 +36,13 @@ public class MaterialController {
     }
 
     @DeleteMapping(path="{id}/delete")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void deleteMaterial(@PathVariable(name="id") Integer id_material){
         materialService.deleteMaterial(id_material);
     }
 
     @GetMapping(path="{id}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Material getMaterial(@PathVariable(name="id") Integer id_material){
         return materialService.getMaterial(id_material);

@@ -15,24 +15,28 @@ public class DeliveryBillController {
     private DeliveryBillService deliveryBillService;
 
     @GetMapping(path="all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<DeliveryBill> getAllDelivery(){
         return deliveryBillService.getAllBill();
     }
 
     @PostMapping(path="create")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<Export> createDelivery(@RequestBody List<Material> materialList){
         return deliveryBillService.create(materialList);
     }
 
     @GetMapping(path="{id}/all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<Export> getAllExportInBill(@PathVariable(name="id") Integer delivery_id){
         return deliveryBillService.getAllExportInBill(delivery_id);
     }
 
     @DeleteMapping(path="{id}/delete")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     String deleteBill(@PathVariable(name="id")Integer delivery_id){
         return deliveryBillService.deleteBill(delivery_id);

@@ -16,30 +16,35 @@ public class ReceiptController {
     private ReceiptService receiptService;
 
     @GetMapping(path="all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<Receipt> getAllReceipt(){
         return receiptService.getAllReceipt();
     }
 
     @PostMapping(path="create")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Receipt generateReceipt(@RequestBody List<Material> materialList){
         return receiptService.create(materialList);
     }
 
     @PostMapping(path="{id}/check")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     Receipt check(@PathVariable(name="id") Integer receipt_id){
         return receiptService.check(receipt_id);
     }
 
     @GetMapping(path="{id}/all")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     List<Import> getAllImportInReceipt(@PathVariable(name="id") Integer id){
         return receiptService.getAllImportInReceipt(id);
     }
 
     @DeleteMapping(path="{id}/delete")
+    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody
     String deleteBill(@PathVariable(name="id")Integer receipt_id){
         return receiptService.deleteReceipt(receipt_id);
