@@ -63,4 +63,8 @@ public class Material {
     public double getUnitprice() {
         return unitprice;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

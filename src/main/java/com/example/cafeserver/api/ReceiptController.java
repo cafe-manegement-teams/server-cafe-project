@@ -15,6 +15,12 @@ public class ReceiptController {
     @Autowired
     private ReceiptService receiptService;
 
+    @GetMapping(path="all")
+    public @ResponseBody
+    List<Receipt> getAllReceipt(){
+        return receiptService.getAllReceipt();
+    }
+
     @PostMapping(path="create")
     public @ResponseBody
     Receipt generateReceipt(@RequestBody List<Material> materialList){

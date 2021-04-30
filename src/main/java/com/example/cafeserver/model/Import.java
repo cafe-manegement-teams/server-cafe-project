@@ -64,4 +64,8 @@ public class Import {
     public double getSubtotal() {
         return subtotal;
     }
+
+    public Integer getId() {
+        return id;
+    }
 }

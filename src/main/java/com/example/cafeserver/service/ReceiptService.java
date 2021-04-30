@@ -90,4 +90,8 @@ public class ReceiptService {
         receiptRepo.deleteById(receipt_id);
         return "Deleted !";
     }
+
+    public List<Receipt> getAllReceipt(){
+        return receiptRepo.findAll();
+    }
 }
